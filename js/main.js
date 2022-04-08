@@ -4,7 +4,7 @@ import { init, updatePage, clearSearch} from './functions'
 let Parser = require('rss-parser');
 let parser = new Parser({
   customFields: {
-    item: ['id', 'type', 'description', 'doclink']
+    item: ['id', 'type', 'description', 'doclink', 'download']
   }
 });
 
