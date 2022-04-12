@@ -20,19 +20,31 @@ let miniSearch = new MiniSearch({
 })
 
 function initSearch(list) {
-  miniSearch.addAll(list)
+  miniSearch.addAll(list);
+  let results = miniSearch.search({
+    combineWith: 'AND',
+    queries: [
+      {
+        queries: ['coating science'],
+        fields: ['categories'],
+        fuzzy: false
+      }
+    ]
+  });
   // let results = miniSearch.search({
-  //   queries:['article'],
-  //   fields: ['type'],
-  //   fuzzy: false,
-  //   tokenize: (string, _fieldName) => string.split(',')
-  // })
-  // let results = miniSearch.search({queries: ["pro"], fuzzy: true})
-  
-  // console.log(`results: ${JSON.stringify(results.map(r => r.id))}`)
+  //   combineWith: 'AND',
+  //   queries: [
+  //     {
+  //       queries: ['article'],
+  //       fields: ['type'],
+  //       fuzzy: false
+  //     }
+  //   ]
+  // });
+
+  console.log(`results: ${JSON.stringify(results)}`);
   // console.log(`result count: ${results.length}`)
 }
-
 
 /**
  * 
@@ -42,15 +54,15 @@ function initSearch(list) {
  * @returns an array of Id's identifying matching items
  */
 const runSearch = (text, type, c = []) => {
-  console.log(`filter called: ${text}, ${typeof type}, ${c}`)
-  let q = text == "" ? [] : [text];
-  let t = type.split("|")
-  if(type != "all") {
+  console.log(`filter called: ${text}, ${typeof type}, ${c}`);
+  let q = text == '' ? [] : [text];
+  let t = type.split('|');
+  if (type != 'all') {
     q.push({
-      queries: t, 
-      fields:['type'],
+      queries: t,
+      fields: ['type'],
       fuzzy: false
-    })
+    });
   }
   if (c.length > 0) {
     q.push({
@@ -58,19 +70,24 @@ const runSearch = (text, type, c = []) => {
       fields: ['categories'],
       fuzzy: false,
       tokenize: (string, _fieldName) => string.split(',')
-    })
+    });
   }
-  console.log(`q: ${JSON.stringify(q)}`)
-  let results = miniSearch.search({
-    combineWith: 'AND',
-    queries: q
-  }, {    filter: (result) => {
-    console.log(`type: ${type}`)
-    let t = result.type.split("|")
-    return result.type.includes(type)
-  }})
+  console.log(`q: ${JSON.stringify(q)}`);
+  let results = miniSearch.search(
+    {
+      combineWith: 'AND',
+      queries: q
+    },
+    {
+      filter: result => {
+        console.log(`type: ${type}`);
+        let t = result.type.split('|');
+        return result.type.includes(type);
+      }
+    }
+  );
   // console.log(`results: ${JSON.stringify(results)}`)
-  return results.map(r => r.id)
-}
+  return results.map(r => r.id);
+};
 
 export { initSearch, runSearch }
