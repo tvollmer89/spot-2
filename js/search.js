@@ -3,29 +3,33 @@ const stopWords = new Set(['and', 'or', 'to', 'in', 'a', 'the'])
 const defaultTokenize = MiniSearch.getDefault('tokenize');
 let miniSearch = new MiniSearch({
   fields: ['title', 'id', 'type', 'categories', 'description', 'pubDate'],
-  storeFields: ['title', 'id', 'type', 'categories'], 
+  storeFields: ['title', 'id', 'type', 'categories'],
   searchOptions: {
-    boost: {title: 2},
+    boost: {
+      title: 2
+    },
     fuzzy: 0.2
   },
   extractField: (doc, fieldName) => {
-    return doc[fieldName]
+    return doc[fieldName];
   },
   tokenize: (text, _fieldName) => {
-    if(_fieldName == "categories") {
+    if (_fieldName == 'categories') {
       return text.split(',');
     }
-    return defaultTokenize(text, _fieldName)
+    return defaultTokenize(text, _fieldName);
   }
-})
+});
 
 function initSearch(list) {
   miniSearch.addAll(list);
+
+  // testing
   let results = miniSearch.search({
     combineWith: 'AND',
     queries: [
       {
-        queries: ['coating science'],
+        queries: ['fireproofing'],
         fields: ['categories'],
         fuzzy: false
       }
@@ -41,7 +45,7 @@ function initSearch(list) {
   //     }
   //   ]
   // });
-
+  // results = miniSearch.search('341');
   console.log(`results: ${JSON.stringify(results)}`);
   // console.log(`result count: ${results.length}`)
 }
@@ -55,7 +59,8 @@ function initSearch(list) {
  */
 const runSearch = (text, type, c = []) => {
   console.log(`filter called: ${text}, ${typeof type}, ${c}`);
-  let q = text == '' ? [] : [text];
+  // let q = text == '' ? [] : [text];
+  let q = [];
   let t = type.split('|');
   if (type != 'all') {
     q.push({
@@ -72,22 +77,31 @@ const runSearch = (text, type, c = []) => {
       tokenize: (string, _fieldName) => string.split(',')
     });
   }
-  console.log(`q: ${JSON.stringify(q)}`);
-  let results = miniSearch.search(
-    {
-      combineWith: 'AND',
-      queries: q
-    },
-    {
-      filter: result => {
-        console.log(`type: ${type}`);
-        let t = result.type.split('|');
-        return result.type.includes(type);
-      }
+  // if text only search, run the search without an array
+  if (q.length === 0) {
+    let results = miniSearch.search(text);
+    return results.map(r => r.id);
+  } else {
+    if (text != '') {
+      q.unshift(text);
     }
-  );
-  // console.log(`results: ${JSON.stringify(results)}`)
-  return results.map(r => r.id);
+    console.log(`q: ${JSON.stringify(q)}`);
+    let results = miniSearch.search(
+      {
+        combineWith: 'AND',
+        queries: q
+      },
+      {
+        filter: result => {
+          console.log(`type: ${type}`);
+          let t = result.type.split('|');
+          return result.type.includes(type);
+        }
+      }
+    );
+    console.log(`new results: ${JSON.stringify(results)}`);
+    return results.map(r => r.id);
+  }
 };
 
-export { initSearch, runSearch }
+export { initSearch, runSearch };

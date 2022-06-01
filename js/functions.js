@@ -6,32 +6,43 @@ const homeTab = document.getElementById("all"),
       checks = document.querySelectorAll("input[type='checkbox']");
 let allItems = [], matchingItems = [], activeTab
 let filters = {
-  t: "",
-  activeType: "all",
+  t: '', //text
+  activeType: 'all',
   catsChecked: []
-}
+};
 
-const init = (feed) => {
+const init = feed => {
   allItems = feed;
   matchingItems = feed;
   activeTab = homeTab;
-  let pageCount = Math.ceil(allItems.length/numPerPage)
-  buildPage(1)
-  buildPager(1, pageCount) 
-  initSearch(allItems)
-  addTabEvents()
-  addCategoryEvents()
-  input.addEventListener("input", updateTextSearch)
+  let pageCount = Math.ceil(allItems.length / numPerPage);
+  buildPage(1);
+  buildPager(1, pageCount);
+  initSearch(allItems);
+  addTabEvents();
+  addCategoryEvents();
+  input.addEventListener('input', updateTextSearch);
   // input.addEventListener('keyup', updateTextSearch);
   console.log(`init() run`);
 
   // let r = runSearch('coating', activeTab.id, ['coating application'])
   // updateList(r)
-}
+};
 
+/**
+ * 
+ * @returns true if:
+ *   - any filters are checked
+ *   - text input is at least 2 characters
+ *   - All is not the current tab
+ */
 const checkFilters = () => {
-  return filters.catsChecked.length > 0 || filters.t.length > 2 || filters.activeType != "all"
-}
+  return (
+    filters.catsChecked.length > 0 ||
+    filters.t.length > 2 ||
+    filters.activeType != 'all'
+  );
+};
 
 // update matching items using item id's from search results
 const updateList = results => {
@@ -62,11 +73,15 @@ const updatePage = (newPage = 1) => {
 
 const updateTextSearch = e => {
   filters.t = e.target.value;
+  if (filters.t.length < 3) {
+    return;
+  }
+  console.log(`checkFilters: ${checkFilters()}`);
   if (checkFilters()) {
     let r = runSearch(filters.t, filters.activeType, filters.catsChecked);
     updateList(r);
   } else {
-    console.log(`else`);
+    console.log(`else ${allItems}`);
     matchingItems = allItems;
     updatePage();
   }
@@ -119,8 +134,9 @@ const clearSearch = () => {
     i.checked = false;
   });
   filters.catsChecked = [];
-  filters.text = '';
+  filters.t = '';
   input.value = '';
+  console.log(`clear button: ${checkFilters()}`);
   if (!checkFilters()) {
     matchingItems = allItems;
     updatePage();
@@ -276,12 +292,11 @@ function displayItem(entry) {
 }
 
 const buildPage = (currPage, list = allItems) => {
-  const trimStart = (currPage - 1) * numPerPage
-  const trimEnd = trimStart + numPerPage
-  activeTab.textContent = ""
-  list.slice(trimStart, trimEnd).forEach(i => displayItem(i))
-}
-
+  const trimStart = (currPage - 1) * numPerPage;
+  const trimEnd = trimStart + numPerPage;
+  activeTab.textContent = '';
+  list.slice(trimStart, trimEnd).forEach(i => displayItem(i));
+};
 
 export {init, updatePage, clearSearch}
 
