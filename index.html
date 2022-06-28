@@ -279,16 +279,13 @@
       <div class="container">
         <div class="row">
           <div class="col-s-12 col-lg-3">
-
             <div id="search-bar">
-              <form class="form-inline" method="get" action="http://test.carboline.com/solution-spot/search">
-                <div class="input-group">
-                  <input type="text" class="form-control" name="term" placeholder="SOLUTION SPOT SEARCH">
-                  <button type="submit" class="btn btn-inline btn-blue" aria-label="blog-search-button">
-                    <i class="bi bi-search"></i>
-                  </button>
+              <div class="input-group">
+                <input id="spot-search" type="text" class="form-control" name="term" placeholder="SOLUTION SPOT SEARCH">
+                <button type="submit" class="btn btn-inline btn-blue" aria-label="blog-search-button">
+                  <i class="bi bi-search"></i>
+                </button>
                 </div>
-              </form>
             </div>
             <div class="category-flters my-3">
               <div class="form-check">
@@ -406,10 +403,8 @@
 
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="http://test.carboline.com/scripts/carb.bundle.js"></script>
-  <script src="js/plugins.js"></script>
-  <!-- <script src="js/functions.js" type="module"></script> -->
-  <!-- <script src="js/search.js"></script> -->
-  <script src="js/main.js"></script>
+  <script src="js/plugins.js" type="module"></script>
+  <script src="js/main.js" type="module"></script>
 
 
 </body>

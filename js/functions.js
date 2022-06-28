@@ -1,10 +1,12 @@
 import { initSearch, runSearch } from './search'
-const homeTab = document.getElementById("all"),
-      pager = document.getElementById('blog-pager'),
-      numPerPage = 10,
-      input = document.querySelector('input[type="text"]'),
-      checks = document.querySelectorAll("input[type='checkbox']");
-let allItems = [], matchingItems = [], activeTab
+const homeTab = document.getElementById('all'),
+  pager = document.getElementById('blog-pager'),
+  numPerPage = 10,
+  input = document.getElementById('spot-search'),
+  checks = document.querySelectorAll("input[type='checkbox']");
+let allItems = [],
+  matchingItems = [],
+  activeTab;
 let filters = {
   t: '', //text
   activeType: 'all',
@@ -22,11 +24,7 @@ const init = feed => {
   addTabEvents();
   addCategoryEvents();
   input.addEventListener('input', updateTextSearch);
-  // input.addEventListener('keyup', updateTextSearch);
   console.log(`init() run`);
-
-  // let r = runSearch('coating', activeTab.id, ['coating application'])
-  // updateList(r)
 };
 
 /**
@@ -73,7 +71,7 @@ const updatePage = (newPage = 1) => {
 
 const updateTextSearch = e => {
   filters.t = e.target.value;
-  if (filters.t.length < 3) {
+  if (filters.t.length > 0 && filters.t.length < 3) {
     return;
   }
   console.log(`checkFilters: ${checkFilters()}`);
@@ -122,6 +120,7 @@ const addCategoryEvents = () => {
         let r = runSearch(...Object.values(filters));
         updateList(r);
       } else {
+        console.log(`checkfilters false:`);
         matchingItems = allItems;
         updatePage();
       }
@@ -257,6 +256,16 @@ function displayItem(entry) {
    * */
 
   switch (entry.type) {
+    case 'guide':
+      let target = entry.linkType ? '_blank' : '_self';
+      html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type">${entry.type}</span>`;
+      if ('categories' in entry) {
+        html += ` | <span class="card-category">${entry.categories.join(
+          ', '
+        )}</span>`;
+      }
+      html += `<p>${entry.description}</p>`;
+      break;
     case 'brochure':
       html += `<h3>${entry.title}</h3><span class="card-type">${entry.type}</span>`;
       if ('categories' in entry) {
