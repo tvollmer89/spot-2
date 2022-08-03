@@ -1,9 +1,11 @@
 import { initSearch, runSearch } from './search'
+import { triggerTab, tabEvents } from './tabs';
 const homeTab = document.getElementById('all'),
   pager = document.getElementById('blog-pager'),
   numPerPage = 10,
   input = document.getElementById('spot-search'),
-  checks = document.querySelectorAll("input[type='checkbox']");
+  checksContainer = document.getElementById('category-filters'),
+  checks = checksContainer.querySelectorAll("input[type='checkbox']");
 let allItems = [],
   matchingItems = [],
   activeTab;
@@ -21,29 +23,36 @@ const init = feed => {
   buildPage(1);
   buildPager(1, pageCount);
   initSearch(allItems);
-  addTabEvents();
+  tabEvents(prepSearch);
   addCategoryEvents();
   input.addEventListener('input', updateTextSearch);
   console.log(`init() run`);
 };
 
 /**
- * 
- * @returns true if:
- *   - any filters are checked
- *   - text input is at least 2 characters
- *   - All is not the current tab
+ * Checks filters and runs search or restarts list if there aren't any
  */
-const checkFilters = () => {
-  return (
+const prepSearch = (newTab = activeTab, newType = filters.activeType) => {
+  activeTab = newTab;
+  filters.activeType = newType;
+  console.log(`prep search activeTab: ${activeTab.id}`);
+  if (
     filters.catsChecked.length > 0 ||
     filters.t.length > 2 ||
     filters.activeType != 'all'
-  );
+  ) {
+    console.log(`yest it's true: ${JSON.stringify(filters)}`);
+    let r = runSearch(...Object.values(filters));
+    updateList(r);
+  } else {
+    matchingItems = allItems;
+    updatePage();
+  }
 };
 
 // update matching items using item id's from search results
 const updateList = results => {
+  console.log(`active tab name: ${activeTab.innerHTML}`);
   if (results.length == 0) {
     activeTab.innerHTML = `<p>No items found matching your search.</p>`;
     pager.textContent = '';
@@ -74,37 +83,29 @@ const updateTextSearch = e => {
   if (filters.t.length > 0 && filters.t.length < 3) {
     return;
   }
-  console.log(`checkFilters: ${checkFilters()}`);
-  if (checkFilters()) {
-    let r = runSearch(filters.t, filters.activeType, filters.catsChecked);
-    updateList(r);
-  } else {
-    console.log(`else ${allItems}`);
-    matchingItems = allItems;
-    updatePage();
-  }
+  prepSearch();
 };
 
-const addTabEvents = () => {
-  let tabLinks = document.querySelectorAll('.type-tab');
-  tabLinks.forEach(tab => {
-    let target = tab.innerHTML.toLowerCase().replace(' ', '-');
-    tab.addEventListener('click', () => {
-      activeTab.textContent = '';
-      activeTab = document.getElementById(target);
-      console.log(`target: ${target}`);
-      filters.activeType = tab.getAttribute('data-filter');
+// const addTabEvents = () => {
+//   let tabLinks = document.querySelectorAll('.type-tab');
+//   tabLinks.forEach(tab => {
+//     let target = tab.innerHTML.toLowerCase().replace(' ', '-');
+//     tab.addEventListener('click', () => {
+//       activeTab.textContent = '';
+//       activeTab = document.getElementById(target);
+//       console.log(`target: ${target}`);
+//       filters.activeType = tab.getAttribute('data-filter');
 
-      if (checkFilters()) {
-        let r = runSearch(...Object.values(filters));
-        updateList(r);
-      } else {
-        matchingItems = allItems;
-        updatePage();
-      }
-    });
-  });
-};
+//       if (checkFilters()) {
+//         let r = runSearch(...Object.values(filters));
+//         updateList(r);
+//       } else {
+//         matchingItems = allItems;
+//         updatePage();
+//       }
+//     });
+//   });
+// };
 
 const addCategoryEvents = () => {
   checks.forEach(input => {
@@ -116,14 +117,7 @@ const addCategoryEvents = () => {
         let i = filters.catsChecked.indexOf(val);
         filters.catsChecked.splice(i, 1);
       }
-      if (checkFilters()) {
-        let r = runSearch(...Object.values(filters));
-        updateList(r);
-      } else {
-        console.log(`checkfilters false:`);
-        matchingItems = allItems;
-        updatePage();
-      }
+      prepSearch();
     });
   });
 };
@@ -135,14 +129,9 @@ const clearSearch = () => {
   filters.catsChecked = [];
   filters.t = '';
   input.value = '';
-  console.log(`clear button: ${checkFilters()}`);
-  if (!checkFilters()) {
-    matchingItems = allItems;
-    updatePage();
-  } else {
-    let r = runSearch(...Object.values(filters));
-    updateList(r);
-  }
+  triggerTab('#all');
+  matchingItems = allItems;
+  updatePage();
 };
 
 /**
@@ -307,6 +296,6 @@ const buildPage = (currPage, list = allItems) => {
   list.slice(trimStart, trimEnd).forEach(i => displayItem(i));
 };
 
-export {init, updatePage, clearSearch}
+export { init, clearSearch };
 
 // buildPage(${totalPages}, list)
