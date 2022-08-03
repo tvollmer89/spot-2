@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime.js";
-import { init, updatePage, clearSearch} from './functions'
+import { init, clearSearch } from './functions';
+import Drops from './dropdowns';
 // import Index from './search'
 let Parser = require('rss-parser');
 let parser = new Parser({
@@ -11,11 +12,13 @@ let parser = new Parser({
 // go to https://cors-anywhere.herokuapp.com/corsdemo
 
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-parser.parseURL(CORS_PROXY + 'http://test.carboline.com/solution-spot/feed/', function(err, feed) {
-  if (err) throw err;
-  init(feed.items)
-})
-
+parser.parseURL(
+  CORS_PROXY + 'http://test.carboline.com/solution-spot/feed/',
+  function(err, feed) {
+    if (err) throw err;
+    init(feed.items);
+  }
+);
 
 /*----------  For test site only  ----------*/
 
@@ -25,7 +28,8 @@ parser.parseURL(CORS_PROXY + 'http://test.carboline.com/solution-spot/feed/', fu
 // })
 
 /*=====  End of Test Site  ======*/
-
-
-
-document.getElementById('clear-search').addEventListener("click", clearSearch)
+Drops();
+document.getElementById('clear-search').addEventListener('click', clearSearch);
+document
+  .getElementById('m-clear-search')
+  .addEventListener('click', clearSearch);

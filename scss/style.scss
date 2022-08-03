@@ -1,0 +1,22 @@
+.drop-link {
+  color: black;
+  padding: 0.5rem 0;
+  display: block;
+  &.show {
+    color: #00a1df;
+  }
+}
+
+.dropdown-menu {
+  padding: 0.5rem;
+  max-height: 340px;
+  overflow: scroll;
+}
+input:placeholder-shown, textarea:placeholder-shown {
+  text-transform: inherit;
+  text-overflow: ellipsis;
+}
+#type-tabs.nav{
+  display: none;
+  @media (min-width: 768px) { display: flex; }
+}

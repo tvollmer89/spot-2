@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/carb.min.css">
+  <link rel="stylesheet" href="./scss/style.scss" />
 
   <meta name="theme-color" content="#00a1df">
 </head>
@@ -156,6 +157,7 @@
         </div>
       </div>
     </header>
+    <!-- Replace with new blog header -->
     <div id="blog-header" class="navbar navbar-expand-lg mb-4">
       <div class="container-lg">
         <div class="d-flex align-items-center ie-flex">
@@ -187,7 +189,7 @@
                   <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/Linings">Linings</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/oil%20and%20gas">oil and gas</a>
+                  <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/oil%20and%20gas">Oil and Gas</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/Rail">Rail</a>
@@ -257,7 +259,7 @@
               <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/Linings">Linings</a>
             </li>
             <li>
-              <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/oil%20and%20gas">oil and gas</a>
+              <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/oil%20and%20gas">Oil and Gas</a>
             </li>
             <li>
               <a class="dropdown-item" href="http://test.carboline.com/solution-spot/categories/Podcast">Podcast</a>
@@ -279,87 +281,214 @@
       <div class="container">
         <div class="row">
           <div class="col-s-12 col-lg-3">
-            <div id="search-bar">
-              <div class="input-group">
-                <input id="spot-search" type="text" class="form-control" name="term" placeholder="SOLUTION SPOT SEARCH">
-                <button type="submit" class="btn btn-inline btn-blue" aria-label="blog-search-button">
-                  <i class="bi bi-search"></i>
-                </button>
+            <div class="d-flex flex-row flex-nowrap">
+              <div class="dropdown d-inline-block d-md-none col">
+                <a id="filter-toggle" class="drop-link text-small" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Filter <i class="bi bi-filter-left"></i>
+                </a>
+                <!-- DROPDOWN MENU  -->
+                <ul class="dropdown-menu shadow-sm">
+                  <h5>Types</h5>
+                  <div id="m-type-filter">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="all" id="mAll" checked>
+                      <label class="form-check-label" for="mAll">
+                        All
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="article" id="mArticle">
+                      <label class="form-check-label" for="mArticle">
+                        Article
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="brochure" id="mBrochures">
+                      <label class="form-check-label" for="mBrochures">
+                        Brochures
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="case-history" id="mCaseHistories">
+                      <label class="form-check-label" for="mCaseHistories">
+                        Case Histories
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="guide" id="mGuides">
+                      <label class="form-check-label" for="mGuides">
+                        Guides
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="podcast" id="mPodcast">
+                      <label class="form-check-label" for="mPodcast">
+                        Podcast
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="tool" id="mTools">
+                      <label class="form-check-label" for="mTools">
+                        Tools
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-filter" value="video" id="mVideos">
+                      <label class="form-check-label" for="mVideos">
+                        Videos
+                      </label>
+                    </div>
+                  </div>
+                  <h5>Categories</h5>
+                  <div id="m-cat-filters">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Coating Application" name="coatingApplication" name="Coating Application" name="coatingApplication" id="coatingApplicationMobile">
+                      <label class="form-check-label text-capitalize" for="coatingApplicationMobile">
+                        Coating Application
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Coating Inspection" name="coatingInspection" name="Coating Inspection" name="coatingInspection" id="coatingInspectionMobile">
+                      <label class="form-check-label text-capitalize" for="coatingInspectionMobile">
+                        Coating Inspection
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Coating Recommendation" name="Coating Recommendation" id="coatingRecommendationMobile">
+                      <label class="form-check-label text-capitalize" for="coatingRecommendationMobile">
+                        Coating Recommendation
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Coating Science" name="Coating Science" id="coatingScienceMobile">
+                      <label class="form-check-label text-capitalize" for="coatingScienceMobile">
+                        Coating Science
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Fireproofing" name="Fireproofing" id="fireproofingMobile">
+                      <label class="form-check-label text-capitalize" for="fireproofingMobile">
+                        Fireproofing
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Food and Beverage" name="Food and Beverage" id="foodAndBeverageMobile">
+                      <label class="form-check-label text-capitalize" for="foodAndBeverageMobile">
+                        Food and Beverage
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Linings" name="Linings" id="liningsMobile">
+                      <label class="form-check-label text-capitalize" for="liningsMobile">
+                        Linings
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Oil and Gas" name="Oil and Gas" id="oilAndGasMobile">
+                      <label class="form-check-label text-capitalize" for="oilAndGasMobile">
+                        Oil and Gas
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Rail" name="Rail" id="railMobile">
+                      <label class="form-check-label text-capitalize" for="railMobile">
+                        Rail
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Water and Wastewater" name="Water and Wastewater" id="waterAndWastewaterMobile">
+                      <label class="form-check-label text-capitalize" for="waterAndWastewaterMobile">
+                        Water and Wastewater
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <a id="m-clear-search" class="btn btn-blue">Clear All</a>
+                  </div>
+                </ul>
+              </div>
+              <div id="search-bar" class="col-9 col-md-12">
+                <div class="input-group">
+                  <input id="spot-search" type="text" class="form-control" name="term" placeholder="Search the Solution Spot">
+                  <button type="submit" class="btn btn-inline btn-blue" aria-label="blog-search-button">
+                    <i class="bi bi-search"></i>
+                  </button>
                 </div>
+              </div>
             </div>
-            <div class="category-flters my-3">
+            <div id="category-filters" class="my-3 d-none d-md-block">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Coating Application" id="Coating Application">
-                <label class="form-check-label text-capitalize" for="Coating Application">
+                <input class="form-check-input" type="checkbox" value="Coating Application" name="coatingApplication" name="Coating Application" name="coatingApplication" id="coatingApplication">
+                <label class="form-check-label text-capitalize" for="coatingApplication">
                   Coating Application
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Coating Inspection" id="Coating Inspection">
-                <label class="form-check-label text-capitalize" for="Coating Inspection">
+                <input class="form-check-input" type="checkbox" value="Coating Inspection" name="coatingInspection" name="Coating Inspection" name="coatingInspection" id="coatingInspection">
+                <label class="form-check-label text-capitalize" for="coatingInspection">
                   Coating Inspection
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Coating Recommendation" id="Coating Recommendation">
-                <label class="form-check-label text-capitalize" for="Coating Recommendation">
+                <input class="form-check-input" type="checkbox" value="Coating Recommendation" name="Coating Recommendation" id="coatingRecommendation">
+                <label class="form-check-label text-capitalize" for="coatingRecommendation">
                   Coating Recommendation
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Coating Science" id="Coating Science">
-                <label class="form-check-label text-capitalize" for="Coating Science">
+                <input class="form-check-input" type="checkbox" value="Coating Science" name="Coating Science" id="coatingScience">
+                <label class="form-check-label text-capitalize" for="coatingScience">
                   Coating Science
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Fireproofing" id="Fireproofing">
-                <label class="form-check-label text-capitalize" for="Fireproofing">
+                <input class="form-check-input" type="checkbox" value="Fireproofing" name="Fireproofing" id="fireproofing">
+                <label class="form-check-label text-capitalize" for="fireproofing">
                   Fireproofing
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Food and Beverage" id="Food and Beverage">
-                <label class="form-check-label text-capitalize" for="Food and Beverage">
+                <input class="form-check-input" type="checkbox" value="Food and Beverage" name="Food and Beverage" id="foodAndBeverage">
+                <label class="form-check-label text-capitalize" for="foodAndBeverage">
                   Food and Beverage
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Linings" id="Linings">
-                <label class="form-check-label text-capitalize" for="Linings">
+                <input class="form-check-input" type="checkbox" value="Linings" name="Linings" id="linings">
+                <label class="form-check-label text-capitalize" for="linings">
                   Linings
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="oil and gas" id="oil and gas">
-                <label class="form-check-label text-capitalize" for="oil and gas">
-                  oil and gas
+                <input class="form-check-input" type="checkbox" value="Oil and Gas" name="Oil and Gas" id="oilAndGas">
+                <label class="form-check-label text-capitalize" for="oilAndGas">
+                  Oil and Gas
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Rail" id="Rail">
-                <label class="form-check-label text-capitalize" for="Rail">
+                <input class="form-check-input" type="checkbox" value="Rail" name="Rail" id="rail">
+                <label class="form-check-label text-capitalize" for="rail">
                   Rail
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Water and Wastewater" id="Water and Wastewater">
-                <label class="form-check-label text-capitalize" for="Water and Wastewater">
+                <input class="form-check-input" type="checkbox" value="Water and Wastewater" name="Water and Wastewater" id="waterAndWastewater">
+                <label class="form-check-label text-capitalize" for="waterAndWastewater">
                   Water and Wastewater
                 </label>
               </div>
             </div>
-            <div>
+            <div class="d-none d-md-block">
               <a id="clear-search" class="btn btn-blue" >Clear All</a>
             </div>
           </div>
           <div class="col-s-12 col-lg-9">
-            <ul class="nav nav-tabs" role="tablist">
+            <ul id="type-tabs" class="nav nav-tabs" role="tablist">
               <li class="nav-item" role="presentation">
                 <a href="#all" class="type-tab nav-link active" data-bs-toggle="tab" data-bs-target="#all" role="tab" aria-selected="true" aria-controls="all" data-filter="all">All</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#articles" role="tab" aria-selected="false" aria-controls="articles" data-filter="article">Articles</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#articles" role="tab" aria-selected="false" aria-labelledby="articles-tab" aria-controls="articles" data-filter="article">Articles</a>
               </li>
               <li class="nav-item" role="presentation">
                 <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#brochures" role="tab" aria-selected="false" aria-controls="brochures" data-filter="brochure">Brochures</a>
@@ -403,8 +532,8 @@
 
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="http://test.carboline.com/scripts/carb.bundle.js"></script>
-  <script src="js/plugins.js" type="module"></script>
   <script src="js/main.js" type="module"></script>
+  <!-- <script src="js/plugins.js" type="module"></script> -->
 
 
 </body>
