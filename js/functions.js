@@ -1,11 +1,15 @@
 import { initSearch, runSearch } from './search'
-import { triggerTab, tabEvents } from './tabs';
+import { triggerTab, tabEvents, radioEvents } from './tabs';
+import { mobileChecks } from './categories';
 const homeTab = document.getElementById('all'),
   pager = document.getElementById('blog-pager'),
   numPerPage = 10,
   input = document.getElementById('spot-search'),
   checksContainer = document.getElementById('category-filters'),
-  checks = checksContainer.querySelectorAll("input[type='checkbox']");
+  mContainer = document.getElementById('mobile-filters'),
+  checks = checksContainer.querySelectorAll("input[type='checkbox']"),
+  mChecks = mContainer.querySelectorAll('input[type="checkbox"]'),
+  mRadios = mContainer.querySelectorAll('input[type="radio"]');
 let allItems = [],
   matchingItems = [],
   activeTab;
@@ -24,15 +28,15 @@ const init = feed => {
   buildPager(1, pageCount);
   initSearch(allItems);
   tabEvents(prepSearch);
+  radioEvents(prepSearch);
   addCategoryEvents();
   input.addEventListener('input', updateTextSearch);
-  console.log(`init() run`);
 };
 
 /**
  * Checks filters and runs search or restarts list if there aren't any
  */
-const prepSearch = (newTab = activeTab, newType = filters.activeType) => {
+const prepSearch = (newType = filters.activeType, newTab = activeTab) => {
   activeTab = newTab;
   filters.activeType = newType;
   console.log(`prep search activeTab: ${activeTab.id}`);
@@ -52,7 +56,6 @@ const prepSearch = (newTab = activeTab, newType = filters.activeType) => {
 
 // update matching items using item id's from search results
 const updateList = results => {
-  console.log(`active tab name: ${activeTab.innerHTML}`);
   if (results.length == 0) {
     activeTab.innerHTML = `<p>No items found matching your search.</p>`;
     pager.textContent = '';
@@ -86,34 +89,18 @@ const updateTextSearch = e => {
   prepSearch();
 };
 
-// const addTabEvents = () => {
-//   let tabLinks = document.querySelectorAll('.type-tab');
-//   tabLinks.forEach(tab => {
-//     let target = tab.innerHTML.toLowerCase().replace(' ', '-');
-//     tab.addEventListener('click', () => {
-//       activeTab.textContent = '';
-//       activeTab = document.getElementById(target);
-//       console.log(`target: ${target}`);
-//       filters.activeType = tab.getAttribute('data-filter');
-
-//       if (checkFilters()) {
-//         let r = runSearch(...Object.values(filters));
-//         updateList(r);
-//       } else {
-//         matchingItems = allItems;
-//         updatePage();
-//       }
-//     });
-//   });
-// };
-
 const addCategoryEvents = () => {
+  mobileChecks();
   checks.forEach(input => {
     input.addEventListener('change', function(e) {
       let val = e.target.value.toLowerCase();
+      let mCheck = mContainer.querySelector(`input[value="${e.target.value}"]`);
+      console.log(`mCheck: ${mCheck}`);
       if (e.target.checked) {
         filters.catsChecked.push(val);
+        mCheck.checked = true;
       } else {
+        mCheck.checked = false;
         let i = filters.catsChecked.indexOf(val);
         filters.catsChecked.splice(i, 1);
       }
@@ -123,9 +110,14 @@ const addCategoryEvents = () => {
 };
 
 const clearSearch = () => {
+  document.getElementById('mAll').checked = true;
   checks.forEach(i => {
     i.checked = false;
   });
+  mChecks.forEach(i => {
+    i.checked = false;
+  });
+
   filters.catsChecked = [];
   filters.t = '';
   input.value = '';
@@ -237,6 +229,10 @@ const addPagerEvents = links => {
   });
 };
 
+/**
+ * 
+ * @param {object} entry document/article in solution spot feed
+ */
 function displayItem(entry) {
   let html = ``;
   /***
@@ -247,18 +243,18 @@ function displayItem(entry) {
   switch (entry.type) {
     case 'guide':
       let target = entry.linkType ? '_blank' : '_self';
-      html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type">${entry.type}</span>`;
+      html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-file-text"></i></span>`;
       if ('categories' in entry) {
-        html += ` | <span class="card-category">${entry.categories.join(
+        html += `<span class="card-category">${entry.categories.join(
           ', '
         )}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
     case 'brochure':
-      html += `<h3>${entry.title}</h3><span class="card-type">${entry.type}</span>`;
+      html += `<h3>${entry.title}</h3><span class="card-type me-2"><i class="bi bi-journal-album"></i></span>`;
       if ('categories' in entry) {
-        html += ` | <span class="card-category">${entry.categories.join(
+        html += `<span class="card-category">${entry.categories.join(
           ', '
         )}</span>`;
       }
@@ -268,18 +264,45 @@ function displayItem(entry) {
       html += `<div class="mb-3"><a class="btn btn-blue" href="${entry.doclink}">Download</a></div>`;
       break;
     case 'tool':
-      html += `<h3><a href="${entry.doclink}" target="_blank">${entry.title}</a></h3><span class="card-type">${entry.type}</span>`;
+      html += `<h3><a href="${entry.doclink}" target="_blank">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-calculator-fill"></i></span>`;
       if ('categories' in entry) {
-        html += ` | <span class="card-category">${entry.categories.join(
+        html += `<span class="card-category">${entry.categories.join(
+          ', '
+        )}</span>`;
+      }
+      html += `<p>${entry.description}</p>`;
+      break;
+    case 'case-history':
+      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-file-richtext"></i></span>`;
+      if ('categories' in entry) {
+        html += `<span class="card-category">${entry.categories.join(
+          ', '
+        )}</span>`;
+      }
+      html += `<p>${entry.description}</p>`;
+      break;
+    case 'podcast':
+      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
+      if ('categories' in entry) {
+        html += `<span class="card-category">${entry.categories.join(
+          ', '
+        )}</span>`;
+      }
+      html += `<p>${entry.description}</p>`;
+      break;
+    case 'video':
+      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-play-circle-fill"></i></span>`;
+      if ('categories' in entry) {
+        html += `<span class="card-category">${entry.categories.join(
           ', '
         )}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
     default:
-      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type">${entry.type}</span>`;
+      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-pencil-fill"></i></span>`;
       if ('categories' in entry) {
-        html += ` | <span class="card-category">${entry.categories.join(
+        html += `<span class="card-category">${entry.categories.join(
           ', '
         )}</span>`;
       }
