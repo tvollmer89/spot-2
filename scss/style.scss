@@ -7,6 +7,10 @@
   }
 }
 
+.blog-card .card-type {
+  color: black;
+}
+
 .dropdown-menu {
   padding: 0.5rem;
   max-height: 340px;
@@ -18,5 +22,5 @@ input:placeholder-shown, textarea:placeholder-shown {
 }
 #type-tabs.nav{
   display: none;
-  @media (min-width: 768px) { display: flex; }
+  @media (min-width: 992px) { display: flex; }
 }

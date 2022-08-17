@@ -277,63 +277,63 @@
         </div>
       </div>
     </div>
-    <main role="main">
+    <main id="blog-home" role="main">
       <div class="container">
         <div class="row">
           <div class="col-s-12 col-lg-3">
             <div class="d-flex flex-row flex-nowrap">
-              <div class="dropdown d-inline-block d-md-none col">
+              <div class="dropdown d-inline-block d-lg-none col">
                 <a id="filter-toggle" class="drop-link text-small" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                   Filter <i class="bi bi-filter-left"></i>
                 </a>
                 <!-- DROPDOWN MENU  -->
-                <ul class="dropdown-menu shadow-sm">
+                <ul id="mobile-filters" class="dropdown-menu shadow-sm">
                   <h5>Types</h5>
                   <div id="m-type-filter">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="all" id="mAll" checked>
+                      <input class="form-check-input" type="radio" name="type-filter" value="all" data-tab="all" id="mAll" checked>
                       <label class="form-check-label" for="mAll">
                         All
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="article" id="mArticle">
+                      <input class="form-check-input" type="radio" name="type-filter" value="article" data-tab="articles" id="mArticle">
                       <label class="form-check-label" for="mArticle">
-                        Article
+                        Articles
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="brochure" id="mBrochures">
+                      <input class="form-check-input" type="radio" name="type-filter" value="brochure" data-tab="brochures" id="mBrochures">
                       <label class="form-check-label" for="mBrochures">
                         Brochures
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="case-history" id="mCaseHistories">
+                      <input class="form-check-input" type="radio" name="type-filter" value="case-history" data-tab="case-histories" id="mCaseHistories">
                       <label class="form-check-label" for="mCaseHistories">
                         Case Histories
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="guide" id="mGuides">
+                      <input class="form-check-input" type="radio" name="type-filter" value="guide" data-tab="guides" id="mGuides">
                       <label class="form-check-label" for="mGuides">
                         Guides
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="podcast" id="mPodcast">
+                      <input class="form-check-input" type="radio" name="type-filter" value="podcast" data-tab="podcast" id="mPodcast">
                       <label class="form-check-label" for="mPodcast">
                         Podcast
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="tool" id="mTools">
+                      <input class="form-check-input" type="radio" name="type-filter" value="tool" data-tab="tools" id="mTools">
                       <label class="form-check-label" for="mTools">
                         Tools
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="type-filter" value="video" id="mVideos">
+                      <input class="form-check-input" type="radio" name="type-filter" value="video" data-tab="videos" id="mVideos">
                       <label class="form-check-label" for="mVideos">
                         Videos
                       </label>
@@ -342,13 +342,13 @@
                   <h5>Categories</h5>
                   <div id="m-cat-filters">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="Coating Application" name="coatingApplication" name="Coating Application" name="coatingApplication" id="coatingApplicationMobile">
+                      <input class="form-check-input" type="checkbox" value="Coating Application" name="Coating Application" name="Coating Application" name="coatingApplication" id="coatingApplicationMobile">
                       <label class="form-check-label text-capitalize" for="coatingApplicationMobile">
                         Coating Application
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="Coating Inspection" name="coatingInspection" name="Coating Inspection" name="coatingInspection" id="coatingInspectionMobile">
+                      <input class="form-check-input" type="checkbox" value="Coating Inspection" name="Coating Inspection" name="Coating Inspection" name="coatingInspection" id="coatingInspectionMobile">
                       <label class="form-check-label text-capitalize" for="coatingInspectionMobile">
                         Coating Inspection
                       </label>
@@ -407,16 +407,16 @@
                   </div>
                 </ul>
               </div>
-              <div id="search-bar" class="col-9 col-md-12">
+              <div id="search-bar" class="col-9 col-lg-12">
                 <div class="input-group">
-                  <input id="spot-search" type="text" class="form-control" name="term" placeholder="Search the Solution Spot">
+                  <input id="spot-search" type="text" class="form-control" name="term" placeholder="Search">
                   <button type="submit" class="btn btn-inline btn-blue" aria-label="blog-search-button">
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
               </div>
             </div>
-            <div id="category-filters" class="my-3 d-none d-md-block">
+            <div id="category-filters" class="my-3 d-none d-lg-block">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="Coating Application" name="coatingApplication" name="Coating Application" name="coatingApplication" id="coatingApplication">
                 <label class="form-check-label text-capitalize" for="coatingApplication">
@@ -478,7 +478,7 @@
                 </label>
               </div>
             </div>
-            <div class="d-none d-md-block">
+            <div class="d-none d-lg-block">
               <a id="clear-search" class="btn btn-blue" >Clear All</a>
             </div>
           </div>
@@ -488,25 +488,25 @@
                 <a href="#all" class="type-tab nav-link active" data-bs-toggle="tab" data-bs-target="#all" role="tab" aria-selected="true" aria-controls="all" data-filter="all">All</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#articles" role="tab" aria-selected="false" aria-labelledby="articles-tab" aria-controls="articles" data-filter="article">Articles</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#articles" role="tab" aria-selected="false" aria-labelledby="articles-tab" aria-controls="articles" data-filter="article"><i class="bi bi-pencil-fill"></i> Articles</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#brochures" role="tab" aria-selected="false" aria-controls="brochures" data-filter="brochure">Brochures</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#brochures" role="tab" aria-selected="false" aria-controls="brochures" data-filter="brochure"><i class="bi bi-journal-album"></i> Brochures</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#case-histories" role="tab" aria-selected="false" aria-controls="case-histories" data-filter="case-history">Case Histories</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#case-histories" role="tab" aria-selected="false" aria-controls="case-histories" data-filter="case-history"><i class="bi bi-file-richtext"></i> Case Histories</a>
               </li>              
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#guides" role="tab" aria-selected="false" aria-controls="guides" data-filter="guide">Guides</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#guides" role="tab" aria-selected="false" aria-controls="guides" data-filter="guide"><i class="bi bi-file-text"></i> Guides</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#podcast" role="tab" aria-selected="false" aria-controls="podcast" data-filter="podcast">Podcast</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#podcast" role="tab" aria-selected="false" aria-controls="podcast" data-filter="podcast"><i class="bi bi-mic-fill"></i> Podcast</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#tools" role="tab" aria-selected="false" aria-controls="tools" data-filter="tool">Tools</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#tools" role="tab" aria-selected="false" aria-controls="tools" data-filter="tool"><i class="bi bi-calculator-fill"></i> Tools</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#videos" role="tab" aria-selected="false" aria-controls="videos" data-filter="video">Videos</a>
+                <a class="type-tab nav-link" data-bs-toggle="tab" data-bs-target="#videos" role="tab" aria-selected="false" aria-controls="videos" data-filter="video"><i class="bi bi-play-circle-fill"></i> Videos</a>
               </li>
             </ul>
             <div id="list-views" class="tab-content mt-3">
@@ -533,7 +533,6 @@
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="http://test.carboline.com/scripts/carb.bundle.js"></script>
   <script src="js/main.js" type="module"></script>
-  <!-- <script src="js/plugins.js" type="module"></script> -->
 
 
 </body>
