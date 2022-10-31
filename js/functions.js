@@ -245,18 +245,14 @@ function displayItem(entry) {
       let target = entry.linkType ? '_blank' : '_self';
       html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-file-text"></i></span>`;
       if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
     case 'brochure':
       html += `<h3>${entry.title}</h3><span class="card-type me-2"><i class="bi bi-journal-album"></i></span>`;
       if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
       }
       if (entry.description != '') {
         html += `<p>${entry.description}</p>`;
@@ -266,45 +262,46 @@ function displayItem(entry) {
     case 'tool':
       html += `<h3><a href="${entry.doclink}" target="_blank">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-calculator-fill"></i></span>`;
       if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
-    case 'case-history':
-      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-file-richtext"></i></span>`;
-      if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+    case 'case-study':
+      if(entry.hasOwnProperty('download')){
+        html += `<h3>${entry.title}</h3><span class="card-type me-2"><i class="bi bi-journal-album"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        if (entry.description != '') {
+          html += `<p>${entry.description}</p>`;
+        }
+        html += `<div class="mb-3"><a class="btn btn-blue" href="${entry.doclink}">Download</a></div>`;
+      } else {
+        html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-file-richtext"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
       }
-      html += `<p>${entry.description}</p>`;
       break;
     case 'podcast':
       html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
       if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
     case 'video':
       html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-play-circle-fill"></i></span>`;
       if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
     default:
       html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-pencil-fill"></i></span>`;
       if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(
-          ', '
-        )}</span>`;
+        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
       }
       html += `<p>${entry.description}</p>`;
       break;
