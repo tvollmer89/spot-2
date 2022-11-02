@@ -285,25 +285,65 @@ function displayItem(entry) {
       }
       break;
     case 'podcast':
-      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
-      if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+      if (entry.hasOwnProperty('doclink')) {
+        // console.log(`podcast link: ${JSON.stringify(entry)}`);
+        let target = '_self';
+        if (entry.hasOwnProperty('linkType')) {
+          target = !entry.linkType ? '_self' : '_blank';
+        }
+        html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
+      } else {
+        html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
       }
-      html += `<p>${entry.description}</p>`;
       break;
     case 'video':
-      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-play-circle-fill"></i></span>`;
-      if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+      if (entry.hasOwnProperty('doclink')) {
+        // console.log(`podcast link: ${JSON.stringify(entry)}`);
+        let target = '_self';
+        if (entry.hasOwnProperty("linkType")) {
+          target = !entry.linkType ? '_self' : '_blank';
+        }
+        html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
+      } else {
+        html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-play-circle-fill"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
       }
-      html += `<p>${entry.description}</p>`;
       break;
     default:
-      html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-pencil-fill"></i></span>`;
-      if ('categories' in entry) {
-        html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+      if (entry.hasOwnProperty('doclink')) {
+        // console.log(`podcast link: ${JSON.stringify(entry)}`);
+        let target = '_self';
+        if (entry.hasOwnProperty("linkType")) {
+          target = !entry.linkType ? '_self' : '_blank';
+        }
+        html += `<h3><a href="${entry.doclink}" target=${target}>${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-mic-fill"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
+      } else {
+
+        html += `<h3><a href="${entry.link}">${entry.title}</a></h3><span class="card-type me-2"><i class="bi bi-pencil-fill"></i></span>`;
+        if ('categories' in entry) {
+          html += `<span class="card-category">${entry.categories.join(', ')}</span>`;
+        }
+        html += `<p>${entry.description}</p>`;
       }
-      html += `<p>${entry.description}</p>`;
       break;
   }
   activeTab.innerHTML += `<div class="blog-card">${html}</div>`;
