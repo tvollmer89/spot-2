@@ -39,13 +39,13 @@ const init = feed => {
 const prepSearch = (newType = filters.activeType, newTab = activeTab) => {
   activeTab = newTab;
   filters.activeType = newType;
-  console.log(`prep search activeTab: ${activeTab.id}`);
+  // console.log(`prep search activeTab: ${activeTab.id}`);
   if (
     filters.catsChecked.length > 0 ||
     filters.t.length > 2 ||
     filters.activeType != 'all'
   ) {
-    console.log(`yest it's true: ${JSON.stringify(filters)}`);
+    // console.log(`yest it's true: ${JSON.stringify(filters)}`);
     let r = runSearch(...Object.values(filters));
     updateList(r);
   } else {
@@ -74,7 +74,7 @@ const updateList = results => {
 };
 
 const updatePage = (newPage = 1) => {
-  console.log(`matching: ${matchingItems.length}`);
+  // console.log(`matching: ${matchingItems.length}`);
 
   let pageCount = Math.ceil(matchingItems.length / numPerPage);
   buildPage(newPage, matchingItems);
@@ -95,7 +95,7 @@ const addCategoryEvents = () => {
     input.addEventListener('change', function(e) {
       let val = e.target.value.toLowerCase();
       let mCheck = mContainer.querySelector(`input[value="${e.target.value}"]`);
-      console.log(`mCheck: ${mCheck}`);
+      // console.log(`mCheck: ${mCheck}`);
       if (e.target.checked) {
         filters.catsChecked.push(val);
         mCheck.checked = true;
