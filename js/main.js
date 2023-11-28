@@ -20,18 +20,12 @@ let parser = new Parser({
 //   }
 // );
 
-
-// prod feed: https://www.carboline.com/solution-spot/feed/
-// test feed: http://test.carboline.com/solution-spot/feed/
-
-
-parser.parseURL('http://test.carboline.com/solution-spot/feed/', function(err, feed) {
+parser.parseURL('https://www.carboline.com/solution-spot/feed/', function(err, feed) {
   if (err) throw err;
   init(feed.items)
 })
 
-
-/*----------  For test and prod site only  ----------*/
+/*----------  For test site only  ----------*/
 
 // parser.parseURL('feed/', function(err, feed) {
 //   if (err) throw err;

@@ -65,13 +65,16 @@ const runSearch = (text, type, c = []) => {
     });
   }
 
-  let results = miniSearch.search({ combineWith: 'AND', queries: q }, { filter: result => {
+  console.log(`q: ${JSON.stringify(q)}`);
+  let results = miniSearch.search(
+    { combineWith: 'AND', queries: q },
+    {
+      filter: result => {
         let t = result.type.split('|');
         let hasCat = false;
         c.forEach(category => {
-          if (!result.categories) {
-            hasCat = false;
-          } else if (result.categories.includes(category)) {
+          console.log(`results c: ${result.categories}`);
+          if (result.categories.includes(category)) {
             console.log(`result ${JSON.stringify(result)} has: ${category}`);
             hasCat = true;
           }
@@ -83,7 +86,9 @@ const runSearch = (text, type, c = []) => {
         } else if (hasCat && result.type.includes(type)) {
           return true;
         }
-      } });
+      }
+    }
+  );
   return results.map(r => r.id);
 };
 
