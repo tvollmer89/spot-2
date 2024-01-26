@@ -8,7 +8,8 @@ let miniSearch = new MiniSearch({
     boost: {
       title: 2
     },
-    fuzzy: 0.2
+    prefix: term => term.length > 3,
+    fuzzy: 1
   },
   extractField: (doc, fieldName) => {
     return doc[fieldName];
@@ -25,19 +26,19 @@ const initSearch = list => {
   miniSearch.addAll(list);
 
   // testing
-  let results = miniSearch.search({
-    combineWith: 'AND',
-    queries: [
-      {
-        queries: ['fireproofing'],
-        fields: ['categories'],
-        fuzzy: false
-      }
-    ]
-  });
-  results = miniSearch.search('fireproofing', {
-    fields: ['categories']
-  });
+  // let results = miniSearch.search({
+  //   combineWith: 'AND',
+  //   queries: [
+  //     {
+  //       queries: ['fireproofing'],
+  //       fields: ['categories'],
+  //       fuzzy: false
+  //     }
+  //   ]
+  // });
+  // results = miniSearch.search('fireproofing', {
+  //   fields: ['categories']
+  // });
 };
 
 /**

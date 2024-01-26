@@ -159,7 +159,7 @@ const buildPager = (currPage, totalPages) => {
     pager.innerHTML = '';
     return;
   }
-  const dots = totalPages > 5;
+  const dots = totalPages > 3;
   const node = document.createDocumentFragment();
   let prev = renderButton({
     class: `${currPage === 1 ? 'disabled' : ''}`,
